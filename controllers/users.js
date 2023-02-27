@@ -34,8 +34,25 @@ const updateUserData = async (req, res) => {
         .catch((err) => console.log(err));
 }
 
+//new user data
+const postUserData= async (req, res) => {
+
+    const dataSend = req.body;
+
+    const newData = new User_Model(dataSend);
+        newData
+            .save()
+            .then((data) => {
+                console.log(data)
+                res.status(200).json({status: true, data});
+            })
+            .catch((err) => console.log(err));
+
+}
+
 
 module.exports = {
     getUserData,
-    updateUserData
+    updateUserData,
+    postUserData
 }

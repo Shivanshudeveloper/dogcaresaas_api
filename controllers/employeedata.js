@@ -7,15 +7,15 @@ const addUserOrgData = async (req, res) => {
     const dataSend = req.body;
 
     if (dataSend.clockInStatus === 'Clocked In') {
-        UserOrgDatalogSchema_Model.countDocuments({ email: dataSend.email, clockedIndate: dataSend.date, clockedInyear: dataSend.year, clockedInmonth: dataSend.month, clockInStatus: dataSend.clockInStatus, orgId: dataSend.orgId }).then((count) => {
+        UserOrgDatalogSchema_Model.countDocuments({ name: dataSend.name ,email: dataSend.email, clockedIndate: dataSend.date, clockedInyear: dataSend.year, clockedInmonth: dataSend.month, clockInStatus: dataSend.clockInStatus, orgId: dataSend.orgId }).then((count) => {
             if (count === 0) {
                 const newData = new UserOrgDatalogSchema_Model({
-                    clockedInloc: dataSend.loc,
-                    clockedIncountry: dataSend.country,
-                    clockedInstate: dataSend.state,
-                    clockedIncity: dataSend.city,
-                    clockedInpostal: dataSend.postal,
-                    clockedIntimezone: dataSend.timezone,
+                    // clockedInloc: dataSend.loc,
+                    // clockedIncountry: dataSend.country,
+                    // clockedInstate: dataSend.state,
+                    // clockedIncity: dataSend.city,
+                    // clockedInpostal: dataSend.postal,
+                    // clockedIntimezone: dataSend.timezone,
                     clockedInday: dataSend.day,
                     clockedInmonth: dataSend.month,
                     clockedIndate: dataSend.date,
@@ -23,12 +23,12 @@ const addUserOrgData = async (req, res) => {
                     clockedIntime: dataSend.time,
                     clockedIntimeMeridiem: dataSend.timeMeridiem,
                     clockInStatus: dataSend.clockInStatus,
-                    clockedOutloc: '',
-                    clockedOutcountry: '',
-                    clockedOutstate: '',
-                    clockedOutcity: '',
-                    clockedOutpostal: '',
-                    clockedOuttimezone: '',
+                    // clockedOutloc: '',
+                    // clockedOutcountry: '',
+                    // clockedOutstate: '',
+                    // clockedOutcity: '',
+                    // clockedOutpostal: '',
+                    // clockedOuttimezone: '',
                     clockedOutday: '',
                     clockedOutmonth: '',
                     clockedOutdate: '',
@@ -36,12 +36,13 @@ const addUserOrgData = async (req, res) => {
                     clockedOuttime: '',
                     clockedOuttimeMeridiem: '',
                     clockOutStatus: '',
-                    userId: dataSend.userId, 
+                    // userId: dataSend.userId, 
                     email: dataSend.email,
-                    userName: dataSend.userName,
-                    orgName: dataSend.orgName,
-                    orgId: dataSend.orgId,
-                    os: dataSend.os
+                    name: dataSend.name,
+                    // userName: dataSend.userName,
+                    // orgName: dataSend.orgName,
+                    // orgId: dataSend.orgId,
+                    // os: dataSend.os
                 });
                 newData
                     .save()
@@ -54,15 +55,15 @@ const addUserOrgData = async (req, res) => {
             }
         })
     } else if (dataSend.clockInStatus === 'Clocked Out') {
-        UserOrgDatalogSchema_Model.countDocuments({ email: dataSend.email, clockedIndate: dataSend.date, clockedInyear: dataSend.year, clockedInmonth: dataSend.month, clockOutStatus: dataSend.clockInStatus, orgId: dataSend.orgId }).then((count) => {
+        UserOrgDatalogSchema_Model.countDocuments({ email: dataSend.email, clockedIndate: dataSend.date, clockedInyear: dataSend.year, clockedInmonth: dataSend.month, clockOutStatus: dataSend.clockInStatus}).then((count) => {
             if (count === 0) {
-                UserOrgDatalogSchema_Model.updateOne({ email: dataSend.email, clockedIndate: dataSend.date, clockedInyear: dataSend.year, clockedInmonth: dataSend.month, orgId: dataSend.orgId }, { $set: {
-                    clockedOutloc: dataSend.loc,
-                    clockedOutcountry: dataSend.country,
-                    clockedOutstate: dataSend.state,
-                    clockedOutcity: dataSend.city,
-                    clockedOutpostal: dataSend.postal,
-                    clockedOuttimezone: dataSend.timezone,
+                UserOrgDatalogSchema_Model.updateOne({ email: dataSend.email, clockedIndate: dataSend.date, clockedInyear: dataSend.year, clockedInmonth: dataSend.month}, { $set: {
+                    // clockedOutloc: dataSend.loc,
+                    // clockedOutcountry: dataSend.country,
+                    // clockedOutstate: dataSend.state,
+                    // clockedOutcity: dataSend.city,
+                    // clockedOutpostal: dataSend.postal,
+                    // clockedOuttimezone: dataSend.timezone,
                     clockedOutday: dataSend.day,
                     clockedOutmonth: dataSend.month,
                     clockedOutdate: dataSend.date,
@@ -85,8 +86,8 @@ const addUserOrgData = async (req, res) => {
 // Get user daily status
 const getUserDailyStatusOrg = async (req, res) => {
     res.setHeader("Content-Type", "application/json");
-    const { email, date, month, year, orgId } = req.params;
-    UserOrgDatalogSchema_Model.findOne({ email, clockedIndate: date, clockedInyear: year, clockedInmonth: month, orgId})
+    const { email, date, month, year } = req.params;
+    UserOrgDatalogSchema_Model.findOne({ email, clockedIndate: date, clockedInyear: year, clockedInmonth: month})
         .then((data) => {
             if (data) {
                 if (data.clockOutStatus === "Clocked Out") {

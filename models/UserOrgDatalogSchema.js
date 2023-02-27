@@ -1,30 +1,30 @@
 const mongoose = require("mongoose");
 
 const userorgdatalogSchema = new mongoose.Schema({
-  clockedInloc: {
-    type: String,
-    required: false,
-  },
-  clockedIncountry: {
-    type: String,
-    required: false,
-  },
-  clockedInstate: {
-    type: String,
-    required: false,
-  },
-  clockedIncity: {
-    type: String,
-    required: false,
-  },
-  clockedInpostal: {
-    type: String,
-    required: false,
-  },
-  clockedIntimezone: {
-    type: String,
-    required: false,
-  },
+  // clockedInloc: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedIncountry: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedInstate: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedIncity: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedInpostal: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedIntimezone: {
+  //   type: String,
+  //   required: false,
+  // },
   clockedInday: {
     type: String,
     required: false,
@@ -54,30 +54,30 @@ const userorgdatalogSchema = new mongoose.Schema({
     required: false,
   },
   
-  clockedOutloc: {
-    type: String,
-    required: false,
-  },
-  clockedOutcountry: {
-    type: String,
-    required: false,
-  },
-  clockedOutstate: {
-    type: String,
-    required: false,
-  },
-  clockedOutcity: {
-    type: String,
-    required: false,
-  },
-  clockedOutpostal: {
-    type: String,
-    required: false,
-  },
-  clockedOuttimezone: {
-    type: String,
-    required: false,
-  },
+  // clockedOutloc: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedOutcountry: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedOutstate: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedOutcity: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedOutpostal: {
+  //   type: String,
+  //   required: false,
+  // },
+  // clockedOuttimezone: {
+  //   type: String,
+  //   required: false,
+  // },
   clockedOutday: {
     type: String,
     required: false,
@@ -106,30 +106,34 @@ const userorgdatalogSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  userId: {
-    type: String,
-    required: true,
-  },
+  // userId: {
+  //   type: String,
+  //   required: true,
+  // },
   email: {
     type: String,
     required: true,
   },
-  userName: {
+  name: {
     type: String,
     required: true,
   },
-  orgName: {
-    type: String,
-    required: true,
-  },
-  orgId: {
-    type: String,
-    required: true,
-  },
-  os: {
-    type: String,
-    required: true,
-  },
+  // userName: {
+  //   type: String,
+  //   required: true,
+  // },
+  // orgName: {
+  //   type: String,
+  //   required: true,
+  // },
+  // orgId: {
+  //   type: String,
+  //   required: true,
+  // },
+  // os: {
+  //   type: String,
+  //   required: true,
+  // },
   createdAt: {
     type: Date,
     default: Date.now,

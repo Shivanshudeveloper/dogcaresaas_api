@@ -2,38 +2,105 @@ const Task_Model = require('../models/assignTask');
 
 
 // Add  newService data
-const postassignTask= async (req, res) => {
+const postassignTask = async (req, res) => {
 
     const dataSend = req.body.users;
 
-    for (index = 0; index < dataSend.length; index++){
-        var new_task = new Task_Model({
-            task:req.body.task,
-            user: dataSend[index],
-            loginnedEmail:req.body.loginnedEmail,
-            loginnedId:req.body.loginnedId
+    if (req.body.action == "assign-task") {
+        for (index = 0; index < dataSend.length; index++) {
+            var new_task = new Task_Model({
+                task: req.body.task,
+                user: dataSend[index],
+                loginnedEmail: req.body.loginnedEmail,
+                assignedDay: req.body.day,
+                assignedMonth: req.body.month,
+                assignedDate: req.body.date,
+                assignedYear: req.body.year,
+                assignedTime: req.body.time,
+                assignedTimeMeridiem: req.body.timeMeridiem,
+                completedDay: "",
+                completedMonth: "",
+                completedDate: "",
+                completedYear: "",
+                completedTime: "",
+                completedTimeMeridiem: "",
+                completionStatus: req.body.completionStatus,
+            })
+
+            new_task
+                .save()
+                .then((data) => {
+                    res.status(200).json({ status: true });
+                })
+                .catch((err) => console.log(err));
+        }
+    } else if (req.body.action == "mark-complete") {
+        Task_Model.updateOne({ _id: req.body.id }, {
+            $set: {
+                completedDay: req.body.day,
+                completedMonth: req.body.month,
+                completedDate: req.body.date,
+                completedYear: req.body.year,
+                completedTime: req.body.time,
+                completedTimeMeridiem: req.body.timeMeridiem,
+                completionStatus: req.body.completionStatus,
+            }
         })
-        
-        // const newData = new Task_Model(newTask);
-        
-        new_task
-        .save()
-        .then((data) => {
-            res.status(200).json({ status: true });
+            .then((data) => {
+                res.status(200).json({ status: true, data: "Marked Completed" });
+            })
+            .catch((err) => console.log(err));
+    } else if (req.body.action == "mark-pending") {
+        Task_Model.updateOne({ _id: req.body.id }, {
+            $set: {
+                completedDay: "",
+                completedMonth: "",
+                completedDate: "",
+                completedYear: "",
+                completedTime: "",
+                completedTimeMeridiem: "",
+                completionStatus: req.body.completionStatus,
+            }
         })
-        .catch((err) => console.log(err));
-        
+            .then((data) => {
+                res.status(200).json({ status: true, data: "Marked Pending" });
+            })
+            .catch((err) => console.log(err));
+    } else if (req.body.action == "update-task") {
+        Task_Model.updateOne({ _id: req.body.id }, {
+            $set: {
+                task: req.body.task,
+            }
+        })
+            .then((data) => {
+                res.status(200).json({ status: true, data: "Task Updated" });
+            })
+            .catch((err) => console.log(err));
     }
 }
 
 // Get All  services
-const getAllassignTask= async (req, res) => {
+const getAllassignTask = async (req, res) => {
     // const { email1 } = req.body;
     const email1 = req.params.email;
     // console.log(req.params)
 
     // console.log(typeof(email1))
-    Task_Model.find({ loginnedEmail :email1 })
+    Task_Model.find({ loginnedEmail: email1 })
+        .then((data) => {
+            console.log(data);
+            res.status(200).json({ status: true, data });
+        })
+        .catch((err) => console.log(err));
+}
+
+const getAllassignEmployeeTask = async (req, res) => {
+    // const { email1 } = req.body;
+    const email1 = req.params.email;
+    // console.log(req.params)
+
+    // console.log(typeof(email1))
+    Task_Model.find({ user: email1 })
         .then((data) => {
             console.log(data);
             res.status(200).json({ status: true, data });
@@ -52,51 +119,53 @@ const updateassignTask = async (req, res) => {
     //  } = req.body;
     const dataSend = req.body;
 
-     console.log(req.body)
-     console.log(req.params.id);
-     const id1  = req.params.id;
-     console.log(id1);
-     const id2=id1.toString()
+    console.log(req.body)
+    console.log(req.params.id);
+    const id1 = req.params.id;
+    console.log(id1);
+    const id2 = id1.toString()
 
-     Task_Model.findByIdAndUpdate(id2 , {
-        task:req.body.task,
+    Task_Model.findByIdAndUpdate(id2, {
+        task: req.body.task,
         user: req.body.user,
-       
 
 
-    },function(err,data){
 
-        if(data) {
+    }, function (err, data) {
+
+        if (data) {
             console.log(data);
             res.status(200).json({ status: true, data });
         }
-        else console.log(err) ;
+        else console.log(err);
     }
-     )}
+    )
+}
 
 
 // Delete service
 const deleteassignTask = async (req, res) => {
-    const id1  = req.params.id;
-    const id2=id1.toString();
+    const id1 = req.params.id;
+    const id2 = id1.toString();
     console.log(req.params.id)
     console.log(id2)
 
     Task_Model.findByIdAndDelete(id2, function (err, docs) {
-        if (err){
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("Deleted : ", docs);
+            res.status(200).json({ status: true, docs });
         }
-    });;
+    });
 }
 
 
 // Get All  services
-const getOneassignTask= async (req, res) => {
-    const id1  = req.params.id;
-    const id2=id1.toString();
+const getOneassignTask = async (req, res) => {
+    const id1 = req.params.id;
+    const id2 = id1.toString();
     Task_Model.findById(id2)
         .then((data) => {
             res.status(200).json({ status: true, data });
@@ -108,6 +177,7 @@ module.exports = {
     getOneassignTask,
     deleteassignTask,
     updateassignTask,
-    postassignTask
+    postassignTask,
+    getAllassignEmployeeTask
 
 }

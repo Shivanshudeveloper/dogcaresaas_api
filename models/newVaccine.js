@@ -1,29 +1,44 @@
 
 const mongoose = require("mongoose");
 
-const taskAssignSchema = new mongoose.Schema({
-  task:{
+const newVaccinceSchema = new mongoose.Schema({
+  vaccineName:{
     type:String,
     required: true,
   },
   
-  user:{
+  petId:{
     type:String,
     required: true,
   },
 
-  loginnedEmail:{
+  petName:{
     type:String,
     required: true,
   },
-  completionStatus:{
+
+  customerName:{
+    type:String,
+    required: true,
+  },
+
+  code:{
+    type:Number,
+    required: true
+  },
+
+  customerEmail:{
+    type:String,
+    required: true,
+  },
+  adminEmail:{
+    type:String,
+    required: true,
+  },
+  vaccinationStatus:{
     type:String,
     required:true,
   },
-  // loginnedId:{
-  //   type:String,
-  //   required: true,
-  // }
   assignedDay: {
     type: String,
     required: false,
@@ -48,30 +63,46 @@ const taskAssignSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  completedDay: {
+  vaccinatedDay: {
     type: String,
     required: false,
   },
-  completedMonth: {
+  vaccinatedMonth: {
     type: String,
     required: false,
   },
-  completedDate: {
+  vaccinatedDate: {
     type: String,
     required: false,
   },
-  completedYear: {
+  vaccinatedYear: {
     type: String,
     required: false,
   },
-  completedTime: {
+  vaccinatedTime: {
     type: String,
     required: false,
   },
-  completedTimeMeridiem: {
+  vaccinatedTimeMeridiem: {
+    type: String,
+    required: false,
+  },
+  expiryDate: {
+    type: String,
+    required: true,
+  },
+  expiryMonth: {
+    type: String,
+    required: true,
+  },
+  expiryYear: {
+    type: String,
+    required: true,
+  },
+  additionalInfo: {
     type: String,
     required: false,
   },
 });
-const taskAssign = mongoose.model("taskAssign", taskAssignSchema);
-module.exports = taskAssign;
+const newVaccine = mongoose.model("newVaccine", newVaccinceSchema);
+module.exports = newVaccine;

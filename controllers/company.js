@@ -4,10 +4,10 @@ const UserOrgDatalogSchema_Model = require('../models/UserOrgDatalogSchema');
 // Get Organization Users Data
 const getOrgUsersData = async (req, res) => {
     res.setHeader("Content-Type", "application/json");
-    const { date, month, year, orgId } = req.params;
-    console.log(date, month, year, orgId);
+    const { date, month, year } = req.params;
+    console.log(date, month, year);
 
-    UserOrgDatalogSchema_Model.find({ clockedIndate: date, clockedInyear: year, clockedInmonth: month, orgId }).sort({ createdAt: -1 })
+    UserOrgDatalogSchema_Model.find({ clockedIndate: date, clockedInyear: year, clockedInmonth: month }).sort({ createdAt: -1 })
         .then((data) => {
             res.status(200).json({ status: true, data });
         })

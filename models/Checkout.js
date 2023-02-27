@@ -1,22 +1,52 @@
 const mongoose = require("mongoose");
 
 const checkoutSchema = new mongoose.Schema({
-  uid: {
+  email: {
     type: String,
-    required: false,
+    required: true,
   },
   product:{
     type: Object,
-    required: false
+    required: true
   },
   productId: {
     type: String,
-    required: false    
+    required: true    
+  },
+  pets: {
+    type: Array,
+  },
+  orderSubmitted: {
+    type: Boolean,
+    required: true
+  },
+  productId: {
+    type: String,
+    required: true    
+  },
+  status: {
+    type:String,
+    required: true
+  },
+  bookedForDate: {
+    type: String,
+  },
+  bookedForMonth: {
+    type: String,
+  },
+  bookedForYear: {
+    type: String,
   },
   CreatedAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  rejectReason: {
+    type: String,
+  },
+  reasonHeading: {
+    type: String,
+  },
 });
 const checkout = mongoose.model("checkout", checkoutSchema);
 module.exports = checkout;

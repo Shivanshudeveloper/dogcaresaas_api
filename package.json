@@ -26,7 +26,7 @@
     "nodemailer": "^6.7.8",
     "react-geocode": "^0.2.2",
     "shortid": "^2.2.16",
-    "stripe": "^8.195.0",
+    "stripe": "^8.222.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

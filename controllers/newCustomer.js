@@ -31,6 +31,18 @@ const getAllCustomer= async (req, res) => {
         .catch((err) => console.log(err));
 }
 
+const getCustomerByEmail = async (req,res) => {
+    const email1 = req.params.email;
+    console.log(email1);
+
+
+    Task_Model.find({ workEmail:email1 })
+        .then((data) => {
+            res.status(200).json({ status: true, data });
+        })
+        .catch((err) => console.log(err));
+}
+
 
 
 
@@ -49,13 +61,13 @@ const updateCustomer = async (req, res) => {
      Task_Model.findByIdAndUpdate(id2 , {
         fullName:req.body.fullName,
         companyName:req.body.companyName,
-
         workEmail: req.body.workEmail,
         phone_number:req.body.phone_number,
-        password:req.body.password
-       
-
-
+        password:req.body.password,
+        country:req.body.country,
+        state: req.body.state,
+        address1: req.body.address1,
+        address2: req.body.address2,
     },function(err,data){
 
         if(data) {
@@ -80,6 +92,7 @@ const deleteCustomer = async (req, res) => {
         }
         else{
             console.log("Deleted : ", docs);
+            res.status(200).json({ status: true, docs });
         }
     });;
 }
@@ -98,7 +111,7 @@ const getOneCustomer= async (req, res) => {
 module.exports = {
     getAllCustomer,
     getOneCustomer,
-
+    getCustomerByEmail,
     postCustomer,
     deleteCustomer,
     updateCustomer

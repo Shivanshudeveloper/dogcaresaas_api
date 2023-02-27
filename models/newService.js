@@ -38,6 +38,9 @@ const ServiceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  productQty: {
+    type: Number,
+  }
 });
 const newService= mongoose.model("newService", ServiceSchema);
 module.exports = newService;

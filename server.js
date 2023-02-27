@@ -5,12 +5,16 @@ const mongoose = require("mongoose");
 const colors = require("colors");
 const cors = require("cors");
 
+
 // Route Files
 const main = require("./routes/main");
 
 // DB Connection
 const db = require("./config/keys").MongoURI;
 // Connect MongoDB
+
+const publicKey = require("./config/keys").PUBLIC_URL;
+
 mongoose
   .connect(db, {
     useNewUrlParser: true,
@@ -22,10 +26,16 @@ mongoose
 
 const app = express();
 
+const corsOptions = {
+  origin: publicKey,
+};
+
+
 app.use(cors());
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
+
 
 
 

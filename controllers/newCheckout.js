@@ -2,73 +2,74 @@ const Task_Model = require('../models/newCheckout');
 
 
 
-const postnewCheckout= async (req, res) => {
+const postnewCheckout = async (req, res) => {
 
     const dataSend = req.body;
     console.log(req.body)
-if(dataSend.isSame){
-    const Data={
+    if (dataSend.isSame) {
+        const Data = {
 
-            fNamebill:dataSend.fNamebill,
+            fNamebill: dataSend.fNamebill,
 
-            lNamebill:dataSend.lNamebill,
-            
-            addressbill:dataSend.addressbill,
-            address2bill:dataSend.address2bill,
-isSame:dataSend.isSame,
-            adminEmail:dataSend.adminEmail,
+            lNamebill: dataSend.lNamebill,
 
-            addressship:dataSend.addressbill,
+            addressbill: dataSend.addressbill,
+            address2bill: dataSend.address2bill,
+            isSame: dataSend.isSame,
+            // adminEmail: dataSend.adminEmail,
 
-            address2ship:dataSend.address2bill
+            addressship: dataSend.addressbill,
+
+            address2ship: dataSend.address2bill,
+            orderProducts: dataSend.orderProducts,
+            status: "pending"
+        }
+        const newData = new Task_Model(Data);
+
+        newData
+            .save()
+            .then((data) => {
+                res.status(200).json({ status: true, data });
+            })
+            .catch((err) => console.log(err));
+
     }
-    const newData = new Task_Model(Data);
+    else {
+        const Data = {
 
-    newData
-    .save()
-    .then((data) => {
-        res.status(200).json({status: true, data});
-    })
-    .catch((err) => console.log(err));
+            fNamebill: dataSend.fNamebill,
 
-}
-else{
-    const Data={
+            lNamebill: dataSend.lNamebill,
 
-            fNamebill:dataSend.fNamebill,
+            addressbill: dataSend.addressbill,
+            address2bill: dataSend.address2bill,
 
-            lNamebill:dataSend.lNamebill,
-            
-            addressbill:dataSend.addressbill,
-            address2bill:dataSend.address2bill,
 
-            
-            addressship:dataSend.addressship,
+            addressship: dataSend.addressship,
 
-            address2ship:dataSend.address2ship,
-            adminEmail:dataSend.email
-    };
-    const newData = new Task_Model(Data);
+            address2ship: dataSend.address2ship,
+            orderProducts: dataSend.orderProducts,
+            status: "pending",
+            totalAmount: dataSend.totalAmount
+            // adminEmail: dataSend.email
+        };
+        const newData = new Task_Model(Data);
 
-    newData.save()
-    .then((data) => {
-        res.status(200).json({status: true, data});
-    })
-    .catch((err) => console.log(err));
+        newData.save()
+            .then((data) => {
+                res.status(200).json({ status: true, data });
+            })
+            .catch((err) => console.log(err));
 
-}
-    
+    }
+
 
 }
 
 
-const getAllnewCheckout= async (req, res) => {
+const getAllnewCheckout = async (req, res) => {
 
-    const email1 = req.params.email;
-  
-
-
-    Task_Model.find({ adminEmail:email1 })
+    Task_Model.find({})
         .then((data) => {
             res.status(200).json({ status: true, data });
         })
@@ -81,50 +82,51 @@ const getAllnewCheckout= async (req, res) => {
 
 const updatenewCheckout = async (req, res) => {
 
- 
+
     const dataSend = req.body;
 
-     console.log(req.body)
-     console.log(req.params.id);
-     const id1  = req.params.id;
-     console.log(id1);
-     const id2=id1.toString()
+    console.log(req.body)
+    console.log(req.params.id);
+    const id1 = req.params.id;
+    console.log(id1);
+    const id2 = id1.toString()
 
-     Task_Model.findByIdAndUpdate(id2 , {
-        fNamebill:req.body.fNamebill,
-        lNamebill:req.body.lNamebill,
+    Task_Model.findByIdAndUpdate(id2, {
+        fNamebill: req.body.fNamebill,
+        lNamebill: req.body.lNamebill,
 
-       addressbill : req.body.addressbill,
-       address2bill :req.body.address2bill,
+        addressbill: req.body.addressbill,
+        address2bill: req.body.address2bill,
 
-       addressship :req.body.addressship,
-       address2ship :req.body.address2ship
+        addressship: req.body.addressship,
+        address2ship: req.body.address2ship
 
 
 
-    },function(err,data){
+    }, function (err, data) {
 
-        if(data) {
+        if (data) {
             console.log(data);
             res.status(200).json({ status: true, data });
         }
-        else console.log(err) ;
+        else console.log(err);
     }
-     )}
+    )
+}
 
 
 
 const deletenewCheckout = async (req, res) => {
-    const id1  = req.params.id;
-    const id2=id1.toString();
+    const id1 = req.params.id;
+    const id2 = id1.toString();
     console.log(req.params.id)
     console.log(id2)
 
     Task_Model.findByIdAndDelete(id2, function (err, docs) {
-        if (err){
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("Deleted : ", docs);
         }
     });;
@@ -132,9 +134,9 @@ const deletenewCheckout = async (req, res) => {
 
 
 
-const getOnenewCheckout= async (req, res) => {
-    const id1  = req.params.id;
-    const id2=id1.toString();
+const getOnenewCheckout = async (req, res) => {
+    const id1 = req.params.id;
+    const id2 = id1.toString();
     Task_Model.findById(id2)
         .then((data) => {
             res.status(200).json({ status: true, data });

@@ -16,6 +16,18 @@ const postEmploy= async (req, res) => {
 
 }
 
+const getEmployeeByEmail = async (req,res) => {
+    const email1 = req.params.email;
+    console.log(email1);
+
+
+    Task_Model.find({ email:email1 })
+        .then((data) => {
+            res.status(200).json({ status: true, data });
+        })
+        .catch((err) => console.log(err));
+}
+
 // Get All  services
 const getAllEmploy= async (req, res) => {
     // const { email1 } = req.body;
@@ -81,6 +93,7 @@ const deleteEmploy = async (req, res) => {
         }
         else{
             console.log("Deleted : ", docs);
+            res.status(200).json({ status: true, docs });
         }
     });;
 }
@@ -99,7 +112,7 @@ const getOneEmploy= async (req, res) => {
 module.exports = {
     getAllEmploy,
     getOneEmploy,
-
+    getEmployeeByEmail,
     postEmploy,
     deleteEmploy,
     updateEmploy

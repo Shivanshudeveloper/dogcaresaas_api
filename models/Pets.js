@@ -28,13 +28,13 @@ const PetsSchema = new mongoose.Schema({
     type:String,
     required: true,
   },
-  vaccine:[
-    {
-        name:String,
-        status:String,
-        expiryDate:String
-    }
-  ],
+  // vaccine:[
+  //   {
+  //       name:String,
+  //       status:String,
+  //       expiryDate:String
+  //   }
+  // ],
   ownerId:{
     type:String,
     required: true,
@@ -46,6 +46,13 @@ const PetsSchema = new mongoose.Schema({
   adminEmail:{
     type:String,
     required: true,
+  },
+  assessmentDone:{
+    type:Boolean, 
+    required: true,
+  },
+  img: {
+    type:String,
   }
 });
 
