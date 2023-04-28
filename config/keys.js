@@ -1,6 +1,6 @@
 module.exports = {
   MongoURI:
-    "mongodb+srv://mvc:mvc@cluster0.6myeufy.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://admin:Roastchicken123!!@cluster0.tfeoazh.mongodb.net/?retryWrites=true&w=majority",
   PUBLIC_URL:
     'http://localhost:3000'
   // PUBLIC_URL:
