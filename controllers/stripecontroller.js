@@ -16,6 +16,42 @@ const connectAccount = (req, res) => {
     // res.redirect(url);
 };
 
+const createSubscription = async (req, res) => {
+    const { name, email, planId, paymentMethod } = req.body;
+
+    const customer = await stripe.customers.create({
+        email: email,
+        name: name,
+        payment_method: paymentMethod,
+        invoice_settings: {
+            default_payment_method: paymentMethod,
+          },
+        
+    });
+
+    
+
+    const subscription = await stripe.subscriptions.create({
+        customer: customer.id,
+        items: [{
+            plan: planId,
+        }],
+        expand: ['latest_invoice.payment_intent'],
+    });
+
+    console.log(subscription)
+
+
+    res.json({
+        subscriptionId: subscription.id,
+        paymentStatus: subscription.latest_invoice.payment_intent.status,
+        clientSecret: subscription.latest_invoice.payment_intent.client_secret,
+    });
+
+
+
+}
+
 // const connectAccount = async(req, res) => {
 //     const account = await stripe.accounts.create({type: 'standard'});
 //     console.log(account)
@@ -41,9 +77,9 @@ const callbackStripe = async (req, res) => {
 
     // this will add the connected account to your account
     const linkedAccount = await stripe.accounts.update(connectedAccountId, {
-       metadata: {
-         main_account: 'acct_1M2CdTInyqzpr4lQ'
-       }
+        metadata: {
+            main_account: 'acct_1M2CdTInyqzpr4lQ'
+        }
     });
 
     // Redirect the account holder back to your application
@@ -73,5 +109,6 @@ const createPaymentIntent = async (req, res) => {
 module.exports = {
     connectAccount,
     callbackStripe,
-    createPaymentIntent
+    createPaymentIntent,
+    createSubscription
 }
