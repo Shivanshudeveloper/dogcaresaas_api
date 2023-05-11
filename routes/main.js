@@ -37,6 +37,8 @@ const customerUpdatesController = require("../controllers/customerUpdates");
 const stripeController = require("../controllers/stripecontroller");
 
 const reportCardController = require("../controllers/reportCard");
+const invoiceController = require("../controllers/invoice");
+const businessController = require("../controllers/business");
 
 router.get("/test", (req, res) => {
   res.send("Working");
@@ -131,6 +133,11 @@ router.delete(
 router.put("/markOrderSubmitted/:id", checkoutController.markOrderSubmitted);
 router.put("/updateServiceStatus", checkoutController.updateServiceStatus);
 
+// Invoices
+router.post("/addInvoice", invoiceController.addInvoice);
+router.get("/getInvoices", invoiceController.getAllInvoices);
+router.get("/getInvoices/:invoiceId", invoiceController.getParticularInvoice);
+
 // Adding request
 router.post("/addrequest", requestController.addRequest);
 
@@ -162,6 +169,10 @@ router.delete("/deleteVaccine/:id", newVaccineController.removeVaccine);
 router.get("/getuserdata/:email", usersController.getUserData);
 router.put("/updateuser", usersController.updateUserData);
 router.post("/postUser", usersController.postUserData);
+
+// Business
+router.post("/addBusiness", businessController.addBusiness);
+router.get("/getBusiness/:userId", businessController.getBusiness);
 
 // Report Card
 router.post("/addReport", reportCardController.addReportCard);
@@ -217,6 +228,21 @@ router.get(
 router.post("/postCustomer", newCustomerController.postCustomer);
 router.put("/updateCustomer/:id", newCustomerController.updateCustomer);
 router.delete("/deleteCustomer/:id", newCustomerController.deleteCustomer);
+router.put("/addBasicDetails/:id", newCustomerController.addBasicDetails);
+router.put(
+  "/addEmergencyContact/:id",
+  newCustomerController.addEmergencyContact
+);
+router.put(
+  "/addOwnerInformation/:id",
+  newCustomerController.addOwnerInformation
+);
+router.put("/addPetFiles/:id", newCustomerController.addPetFiles);
+router.put("/addVetInformation/:id", newCustomerController.addVetInformation);
+router.put(
+  "/addReportCardToCustomer/:id",
+  newCustomerController.addReportCardToCustomer
+);
 
 //checkout
 
