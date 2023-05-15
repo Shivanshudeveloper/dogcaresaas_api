@@ -1,31 +1,30 @@
-
 const mongoose = require("mongoose");
 
 const PetsSchema = new mongoose.Schema({
-  name:{
-    type:String,
-    required: true,
-  },
-  
-  category:{
-    type:String,
+  name: {
+    type: String,
     required: true,
   },
 
-  country:{
-    type:String,
+  category: {
+    type: String,
     required: true,
   },
-  breed:{
-    type:String,
+
+  country: {
+    type: String,
     required: true,
   },
-  testAddress:{
-    type:String,
+  breed: {
+    type: String,
     required: true,
   },
-  additionalInfo:{
-    type:String,
+  testAddress: {
+    type: String,
+    required: true,
+  },
+  additionalInfo: {
+    type: String,
     required: true,
   },
   // vaccine:[
@@ -35,25 +34,28 @@ const PetsSchema = new mongoose.Schema({
   //       expiryDate:String
   //   }
   // ],
-  ownerId:{
-    type:String,
+  ownerId: {
+    type: String,
     required: true,
   },
-  ownerEmail:{
-    type:String,
+  ownerEmail: {
+    type: String,
     required: true,
   },
-  adminEmail:{
-    type:String,
+  adminEmail: {
+    type: String,
     required: true,
   },
-  assessmentDone:{
-    type:Boolean, 
+  assessmentDone: {
+    type: Boolean,
     required: true,
+  },
+  checkinStatus: {
+    type: String,
   },
   img: {
-    type:String,
-  }
+    type: String,
+  },
 });
 
 const Pets = mongoose.model("Pets", PetsSchema);

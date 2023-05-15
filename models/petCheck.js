@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const petCheckSchema = new mongoose.Schema({
+  petId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Pets",
+  },
   checkedInday: {
     type: String,
     required: false,
@@ -53,26 +58,10 @@ const petCheckSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  checkOutStatus: {
-    type: String,
-    required: false,
-  },
-  customerEmail: {
-    type: String,
-    required: true,
-  },
-  customerName: {
-    type: String,
-    required: true,
-  },
-  petId: {
-    type: String,
-    required: true,
-  },
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 const petCheck = mongoose.model("petCheck", petCheckSchema);
 module.exports = petCheck;

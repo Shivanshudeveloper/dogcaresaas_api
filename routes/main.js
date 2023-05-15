@@ -99,7 +99,9 @@ router.get(
 );
 
 // Pet check in check out status
-router.post("/addpetcheckdata", petCheckController.addPetCheckData);
+// router.post("/addpetcheckdata", petCheckController.addPetCheckData);
+router.put("/requestPetCheckIn/:id", petCheckController.requestPetCheckIn);
+router.post("/updatePetCheckData/:id", petCheckController.updatePetCheckData);
 router.get(
   "/getpetdailystatus/:customerEmail/:date/:month/:year",
   petCheckController.getPetDailyStatus
