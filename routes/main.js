@@ -50,7 +50,7 @@ router.get("/callback", stripeController.callbackStripe);
 router.post("/create-payment-intent", stripeController.createPaymentIntent);
 router.post("/subscribe", stripeController.createSubscription);
 
-//s3 listvideos endpoint
+//s3 listvideos endpoints
 // router.get('/listvideos/', aws_con.listVideos);
 
 // Organization
