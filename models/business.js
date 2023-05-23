@@ -28,6 +28,23 @@ const BusinessSchema = new mongoose.Schema({
   profileImageUrl: {
     type: String,
   },
+  paymentOptions: {
+    accountHolderName: {
+      type: String,
+    },
+    bankAccountNumber: {
+      type: String,
+    },
+    bankName: {
+      type: String,
+    },
+    ifscCode: {
+      type: String,
+    },
+    swiftCode: {
+      type: String,
+    },
+  },
 });
 
 const Business = mongoose.model("Business", BusinessSchema);

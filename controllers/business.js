@@ -38,7 +38,7 @@ const addBusiness = async (req, res) => {
 };
 
 // @route   GET api/v1/main/getBusiness/:userId
-// @desc    Update Buisness Details
+// @desc    Get Buisness Details
 // @access  Private
 const getBusiness = async (req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -56,7 +56,27 @@ const getBusiness = async (req, res) => {
   }
 };
 
+// @route   PUT api/v1/main/addBusinessPaymentOptions/:userId
+// @desc    Add Payment options for the business
+// @access  Private
+const addPaymentOptions = async (req, res) => {
+  const userId = req.params.userId;
+  Business.findOneAndUpdate(
+    { userId: userId.toString() },
+    {
+      $set: { paymentOptions: req.body.paymentOptions },
+    },
+    function (err, data) {
+      if (data) {
+        console.log(data);
+        res.status(200).json({ status: true, data });
+      } else console.log(err);
+    }
+  );
+};
+
 module.exports = {
   addBusiness,
   getBusiness,
+  addPaymentOptions,
 };

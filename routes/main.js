@@ -50,7 +50,7 @@ router.get("/callback", stripeController.callbackStripe);
 router.post("/create-payment-intent", stripeController.createPaymentIntent);
 router.post("/subscribe", stripeController.createSubscription);
 
-//s3 listvideos endpoints
+//s3 listvideos endpoint
 // router.get('/listvideos/', aws_con.listVideos);
 
 // Organization
@@ -175,9 +175,12 @@ router.post("/postUser", usersController.postUserData);
 // Business
 router.post("/addBusiness", businessController.addBusiness);
 router.get("/getBusiness/:userId", businessController.getBusiness);
-
-// Report Card
-router.post("/addReport", reportCardController.addReportCard);
+router.put(
+  "/addBusinessPaymentOptions/:userId",
+  businessController.addPaymentOptions
+),
+  // Report Card
+  router.post("/addReport", reportCardController.addReportCard);
 router.get("/getReports/:userId", reportCardController.getAllReports);
 router.get("/getReport/:reportId", reportCardController.getParticularReport);
 
@@ -244,6 +247,10 @@ router.put("/addVetInformation/:id", newCustomerController.addVetInformation);
 router.put(
   "/addReportCardToCustomer/:id",
   newCustomerController.addReportCardToCustomer
+);
+router.get(
+  "/getCustomerAdminPaymentDetails/:email",
+  newCustomerController.getCustomerAdminPaymentDetails
 );
 
 //checkout

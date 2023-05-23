@@ -1,4 +1,5 @@
 const Task_Model = require("../models/newCustomer");
+const Business_Model = require("../models/business");
 
 const postCustomer = async (req, res) => {
   const dataSend = req.body;
@@ -187,6 +188,31 @@ const getOneCustomer = async (req, res) => {
     .catch((err) => console.log(err));
 };
 
+const getCustomerAdminPaymentDetails = async (req, res) => {
+  const email = req.params.email;
+  const data = await Task_Model.findOne(
+    { workEmail: email },
+    function (err, data) {
+      if (data) {
+        console.log("Data: ", data);
+        // res.status(200).json({ status: true, data });
+      } else console.log(err);
+    }
+  );
+
+  const adminEmail = data.adminEmail;
+
+  await Business_Model.findOne(
+    { email: adminEmail.toString() },
+    function (err, data) {
+      if (data) {
+        console.log(data.paymentOptions);
+        res.status(200).json({ status: true, data: data.paymentOptions });
+      } else console.log(err);
+    }
+  );
+};
+
 module.exports = {
   getAllCustomer,
   getOneCustomer,
@@ -200,4 +226,5 @@ module.exports = {
   addPetFiles,
   addVetInformation,
   addReportCardToCustomer,
+  getCustomerAdminPaymentDetails,
 };
