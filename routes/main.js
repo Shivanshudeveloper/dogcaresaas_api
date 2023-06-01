@@ -40,6 +40,8 @@ const reportCardController = require("../controllers/reportCard");
 const invoiceController = require("../controllers/invoice");
 const businessController = require("../controllers/business");
 
+const chatThreadsController = require("../controllers/chatThreads");
+
 router.get("/test", (req, res) => {
   res.send("Working");
 });
@@ -183,6 +185,19 @@ router.put(
   router.post("/addReport", reportCardController.addReportCard);
 router.get("/getReports/:userId", reportCardController.getAllReports);
 router.get("/getReport/:reportId", reportCardController.getParticularReport);
+
+// Chat Threads
+router.post("/addChatThread", chatThreadsController.addThread);
+router.get("/getChatThread/:threadId", chatThreadsController.getThread);
+router.get("/getChatThreads/:adminId", chatThreadsController.getThreads);
+router.get(
+  "/getCustomerChatThread/:customerId",
+  chatThreadsController.getCustomerThread
+);
+router.put(
+  "/addMessage/:adminId/:customerId/:threadId",
+  chatThreadsController.addMessage
+);
 
 //////
 

@@ -7,7 +7,6 @@ const newCustomerSchema = new mongoose.Schema({
   },
   companyName: {
     type: String,
-    required: true,
   },
   workEmail: {
     type: String,
